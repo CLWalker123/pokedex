@@ -3,7 +3,9 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
-import { Text as DefaultText, View as DefaultView } from 'react-native';
+import { useMemo } from 'react';
+import { Text as DefaultText, TouchableOpacity as DefaultTouchableOpacity, View as DefaultView } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -28,7 +30,8 @@ type ThemeProps = {
 };
 
 export type TextProps = ThemeProps & DefaultText['props'];
-export type ViewProps = ThemeProps & DefaultView['props'];
+export type ViewProps = ThemeProps & DefaultView['props'] & { safeInsets?: boolean };
+export type TouchableOpacityProps = ThemeProps & DefaultTouchableOpacity['props'];
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -38,8 +41,20 @@ export function Text(props: TextProps) {
 }
 
 export function View(props: ViewProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
+  const { style, lightColor, darkColor, safeInsets, ...otherProps } = props;
+  const insets = useSafeAreaInsets();
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
 
-  return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+  const newStyle = useMemo(() => [{ backgroundColor, paddingTop: safeInsets ? insets.top : 0, paddingBottom: safeInsets ? insets.bottom : 0 }, style], [backgroundColor, style, safeInsets]);
+
+  return <DefaultView style={newStyle} {...otherProps} />;
+}
+
+export function TouchableOpacity(props: TouchableOpacityProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'accent');
+
+  const newStyle = useMemo(() => [{ backgroundColor }, style], [backgroundColor, style]);
+
+  return <DefaultTouchableOpacity style={newStyle} {...otherProps} />
 }
