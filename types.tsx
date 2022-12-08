@@ -17,7 +17,8 @@ declare global {
 }
 
 export type RootStackParamList = {
-  PokemonListScreens: undefined;
+  Root: undefined;
+  PokemonListScreen: undefined;
   TabTwo: undefined;
   Modal: undefined;
   NotFound: undefined;
