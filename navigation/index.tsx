@@ -16,7 +16,7 @@ import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import PokemonListScreen from "../screens/PokemonListScreen";
 import PokemonDetailScreen from "../screens/PokemonDetailScreen";
-import { RootStackParamList } from "../types";
+import { RootStackParamList } from "./types";
 import LinkingConfiguration from "./LinkingConfiguration";
 
 export default function Navigation({

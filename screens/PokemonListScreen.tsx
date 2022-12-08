@@ -1,8 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 
-import { Text, View } from "../components/Themed";
-import { RootTabScreenProps } from "../types";
+import { RootTabScreenProps } from "../navigation/types";
 
 export default function PokemonListScreen({
   navigation,
