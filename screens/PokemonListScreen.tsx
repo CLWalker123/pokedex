@@ -33,7 +33,7 @@ export default function PokemonListScreen({
   const renderItem = ({ item: pokemon }: { item: Pokemon }) => (
     <TouchableOpacity
       style={styles.pokemonContainer}
-      onPress={() => navigation.navigate("TabTwo")}
+      onPress={() => navigation.navigate("PokemonDetailScreen")}
     >
       <Text style={styles.partyCTA}>{`${pokemon.name
         .charAt(0)

@@ -1,8 +1,11 @@
 import { StyleSheet } from "react-native";
 
 import { Text, View } from "../components/Themed";
+import { RootTabScreenProps } from "../navigation/types";
 
-export default function PokemonDetailScreen() {
+export default function PokemonDetailScreen({
+  route,
+}: RootTabScreenProps<"PokemonDetailScreen">) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Pikachu</Text>

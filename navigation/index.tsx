@@ -49,7 +49,7 @@ function RootNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="TabTwo"
+        name="PokemonDetailScreen"
         component={PokemonDetailScreen}
         options={{ title: "" }}
       />
