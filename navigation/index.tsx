@@ -70,7 +70,7 @@ function RootNavigator() {
         <Stack.Screen
           name="Modal"
           component={ModalScreen}
-          options={{ headerTitle: "My Party" }}
+          options={{ headerTitle: "My Party", headerTintColor: "#F8EADC" }}
         />
       </Stack.Group>
     </Stack.Navigator>

@@ -3,7 +3,7 @@ import { PokemonType } from "../types/pokemonType";
 const tintColorLight = "#2f95dc";
 const tintColorDark = "#fff";
 
-const pokedexRed = "#CA2E36";
+export const pokedexRed = "#CA2E36";
 const pokedexGreen = "#69AA68";
 
 export const TYPE_TO_COLOR: Record<PokemonType, string> = {

@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { Text, View } from "../components/Themed";
+import { Text, TouchableOpacity, View } from "../components/Themed";
 import { TYPE_TO_COLOR, TYPE_TO_TEXT_COLOR } from "../constants/Colors";
 import { URLs } from "../constants/Urls";
 import { RootStackScreenProps } from "../navigation/types";
-import { PokemonDetails } from "../types/pokemon";
+import { Pokemon, PokemonDetails } from "../types/pokemon";
+import { StorageKeys } from "../constants/StorageKeys";
 
 export default function PokemonDetailScreen({
   route,
@@ -32,8 +34,43 @@ export default function PokemonDetailScreen({
     fetchPokemonDetails();
   }, []);
 
+  const handlePressAddToParty = useCallback(async () => {
+    try {
+      const currentParty = await AsyncStorage.getItem(StorageKeys.PARTY);
+      const parsedParty = !!currentParty ? JSON.parse(currentParty) : null;
+      if (parsedParty.length >= 6) {
+        alert("You already have 6 Pokemon in your party!");
+        return;
+      }
+      if (
+        parsedParty &&
+        parsedParty.some(
+          (partyPokemon: Pokemon) => partyPokemon.name === pokemon.name
+        )
+      ) {
+        alert(
+          `${pokemon.name.charAt(0).toUpperCase()}${pokemon.name.slice(
+            1
+          )} is already in your party!`
+        );
+        return;
+      }
+      AsyncStorage.setItem(
+        StorageKeys.PARTY,
+        JSON.stringify([...parsedParty, pokemon])
+      );
+    } catch {
+      AsyncStorage.setItem(StorageKeys.PARTY, JSON.stringify([pokemon]));
+    }
+    alert(
+      `${pokemon.name.charAt(0).toUpperCase()}${pokemon.name.slice(
+        1
+      )} added to party!`
+    );
+  }, [pokemon]);
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} safeInsets>
       <View style={styles.contentContainer}>
         {!pokemonDetails ? (
           <ActivityIndicator style={{ flex: 1 }} />
@@ -69,6 +106,9 @@ export default function PokemonDetailScreen({
           </>
         )}
       </View>
+      <TouchableOpacity style={styles.addBtn} onPress={handlePressAddToParty}>
+        <Text style={styles.partyCTA}>Add to Party</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -76,11 +116,13 @@ export default function PokemonDetailScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "space-between",
   },
   contentContainer: {
     justifyContent: "space-between",
     backgroundColor: "#000",
     margin: 16,
+    marginTop: 0,
     padding: 16,
     height: "50%",
     borderRadius: 8,
@@ -110,5 +152,15 @@ const styles = StyleSheet.create({
     marginRight: 8,
     paddingHorizontal: 8,
     borderRadius: 8,
+  },
+  addBtn: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 16,
+  },
+  partyCTA: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#1E252B",
   },
 });
