@@ -9,6 +9,7 @@ import {
   NavigatorScreenParams,
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Pokemon } from "../types/pokemon";
 
 declare global {
   namespace ReactNavigation {
@@ -19,7 +20,7 @@ declare global {
 export type RootStackParamList = {
   Root: undefined;
   PokemonListScreen: undefined;
-  PokemonDetailScreen: undefined;
+  PokemonDetailScreen: { pokemon: Pokemon };
   Modal: undefined;
   NotFound: undefined;
 };

@@ -3,12 +3,12 @@ import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 
 import { Text, TouchableOpacity, View } from "../components/Themed";
 import { URLs } from "../constants/Urls";
-import { RootTabScreenProps } from "../navigation/types";
+import { RootStackScreenProps } from "../navigation/types";
 import { Pokemon } from "../types/pokemon";
 
 export default function PokemonListScreen({
   navigation,
-}: RootTabScreenProps<"PokemonListScreen">) {
+}: RootStackScreenProps<"PokemonListScreen">) {
   const [loaded, setLoaded] = useState(false);
   const [loadedPokemon, setLoadedPokemon] = useState<Pokemon[]>([]);
   const [nextUrl, setNextUrl] = useState<string>(URLs.POKEMON);
@@ -33,7 +33,7 @@ export default function PokemonListScreen({
   const renderItem = ({ item: pokemon }: { item: Pokemon }) => (
     <TouchableOpacity
       style={styles.pokemonContainer}
-      onPress={() => navigation.navigate("PokemonDetailScreen")}
+      onPress={() => navigation.navigate("PokemonDetailScreen", { pokemon })}
     >
       <Text style={styles.partyCTA}>{`${pokemon.name
         .charAt(0)

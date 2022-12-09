@@ -18,17 +18,25 @@ import PokemonListScreen from "../screens/PokemonListScreen";
 import PokemonDetailScreen from "../screens/PokemonDetailScreen";
 import { RootStackParamList } from "./types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import Colors from "../constants/Colors";
 
 export default function Navigation({
   colorScheme,
 }: {
   colorScheme: ColorSchemeName;
 }) {
+  const theme = React.useMemo(
+    () =>
+      colorScheme === "dark"
+        ? { ...DarkTheme, colors: { ...DarkTheme.colors, ...Colors.dark } }
+        : {
+            ...DefaultTheme,
+            colors: { ...DefaultTheme.colors, ...Colors.light },
+          },
+    [colorScheme]
+  );
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
+    <NavigationContainer linking={LinkingConfiguration} theme={theme}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -51,7 +59,7 @@ function RootNavigator() {
       <Stack.Screen
         name="PokemonDetailScreen"
         component={PokemonDetailScreen}
-        options={{ title: "" }}
+        options={{ title: "", headerTintColor: "#F8EADC" }}
       />
       <Stack.Screen
         name="NotFound"
