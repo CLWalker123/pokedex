@@ -46,6 +46,7 @@ export default function PokemonListScreen({
     <View style={styles.container} safeInsets>
       <FlatList
         data={loadedPokemon}
+        contentContainerStyle={styles.contentContainer}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
         snapToInterval={56}
@@ -67,10 +68,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
   },
+  contentContainer: {
+    borderTopWidth: 1,
+    borderColor: "black",
+  },
   partyBtn: {
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "black",
   },
   partyCTA: {
     fontSize: 24,

@@ -46,7 +46,7 @@ export default function ModalScreen({
           </Text>
         </>
       ) : (
-        <View>
+        <View style={styles.contentContainer}>
           {party.map((pokemon) => (
             <View style={styles.pokemonContainer}>
               <Text style={styles.partyCTA}>{`${pokemon.name
@@ -87,10 +87,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
   },
+  contentContainer: {
+    borderTopWidth: 1,
+    borderColor: "black",
+  },
   backBtn: {
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "black",
   },
   partyCTA: {
     fontSize: 24,

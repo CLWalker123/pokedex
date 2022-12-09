@@ -157,6 +157,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "black",
   },
   partyCTA: {
     fontSize: 24,
