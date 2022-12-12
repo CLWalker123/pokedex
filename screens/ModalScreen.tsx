@@ -13,13 +13,13 @@ export default function ModalScreen({
 }: RootStackScreenProps<"Modal">) {
   const [party, setParty] = useState<Pokemon[]>();
 
-  const fetchCurrentParty = async () => {
-    const currentParty = await AsyncStorage.getItem(StorageKeys.PARTY);
-    const parsedParty = !!currentParty ? JSON.parse(currentParty) : null;
-    setParty(parsedParty);
-  };
-
   useEffect(() => {
+    const fetchCurrentParty = async () => {
+      const currentParty = await AsyncStorage.getItem(StorageKeys.PARTY);
+      const parsedParty = !!currentParty ? JSON.parse(currentParty) : null;
+      setParty(parsedParty);
+    };
+    
     fetchCurrentParty();
   }, []);
 
